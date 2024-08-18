@@ -1,6 +1,5 @@
-ARG KERNEL_PACKAGE_NAME
-
 FROM debian:11 AS download_kernel
+ARG KERNEL_PACKAGE_NAME
 RUN <<"EOF"
 	apt-get install build-essential -y
 	apt-get build-dep linux -y
