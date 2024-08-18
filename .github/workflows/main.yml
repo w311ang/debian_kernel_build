@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: build docker image
         run: |
+          mkdir artifact
           docker build --build-arg KERNEL_VERSION=${{ github.event.inputs.kernel_version }} \
             --build-arg BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }} \
             -t kernel_build_image --target download_kernel .
