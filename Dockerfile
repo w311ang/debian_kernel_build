@@ -12,6 +12,9 @@ COPY .config /.config
 RUN mv /.config linux-*/
 
 FROM download_kernel AS build
-RUN export MAKEFLAGS=-j$(nproc)
-RUN export DEB_BUILD_PROFILES='pkg.linux.nokerneldbg pkg.linux.nokerneldbginfo'
-RUN dpkg-buildpackage -b -nc -uc
+RUN <<EOF
+    cd linux-*
+    export MAKEFLAGS=-j$(nproc)
+    export DEB_BUILD_PROFILES='pkg.linux.nokerneldbg pkg.linux.nokerneldbginfo'
+    dpkg-buildpackage -b -nc -uc
+EOF
