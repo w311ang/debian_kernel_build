@@ -26,20 +26,20 @@ jobs:
             --build-arg BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }} \
             -t kernel_build_image --target download_kernel .
       - name: Start SSH via tmate
-        if: ${{ github.event.inputs.ssh == 'true' }}
+        if: github.event.inputs.ssh == 'true'
         uses: P3TERX/ssh2actions@main
       - name: build docker image
-        if: ${{ github.event.inputs.ssh != 'true' }}
+        if: github.event.inputs.ssh != 'true'
         run: |
           docker build --build-arg KERNEL_VERSION=${{ github.event.inputs.kernel_version }} \
             --build-arg BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }} \
             -t kernel_build_image .
       - name: retrieve artifact from docker image
-        if: ${{ github.event.inputs.ssh != 'true' }}
+        if: github.event.inputs.ssh != 'true'
         run: |
           docker run -it --name kernel_build -d kernel_build_image:latest
       - name: Start SSH via tmate
-        if: always()
+        if: github.event.inputs.ssh != 'true' && always()
         uses: P3TERX/ssh2actions@main
       - uses: actions/upload-artifact@v4
         with:
