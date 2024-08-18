@@ -3,8 +3,11 @@ name: CI
 on:
   workflow_dispatch:
     inputs:
-      kernel_package_name:
-        description: 'Linux Kernel Package Name'
+      kernel_version:
+        description: 'Linux Kernel Version'
+        required: true
+      build_debian_version:
+        description: 'Build Debian Version'
         required: true
       ssh:
         required: false
@@ -18,13 +21,17 @@ jobs:
       - uses: actions/checkout@v4
       - name: build docker image
         run: |
-          docker build --build-arg KERNEL_PACKAGE_NAME=${{ github.event.inputs.kernel_package_name }} -t kernel_build_image --target download_kernel .
+          docker build --build-arg KERNEL_VERSION=${{ github.event.inputs.kernel_version }} \
+            --build-arg BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }} \
+            -t kernel_build_image --target download_kernel .
       - name: Start SSH via tmate
         if: ${{ github.event.inputs.ssh == 'true' }}
         uses: P3TERX/ssh2actions@main
       - name: build docker image
         run: |
-          docker build --build-arg KERNEL_PACKAGE_NAME=${{ github.event.inputs.kernel_package_name }} -t kernel_build_image .
+          docker build --build-arg KERNEL_VERSION=${{ github.event.inputs.kernel_version }} \
+            --build-arg BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }} \
+            -t kernel_build_image .
       - name: retrieve artifact from docker image
         run: |
           docker run -it --name kernel_build -d kernel_build_image:latest
