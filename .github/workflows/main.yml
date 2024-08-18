@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      kernel_package_name:
+        description: 'Linux Kernel Package Name'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: build docker image
+        run: |
+          docker build -t kernel_build_image .
+      - name: retrieve artifact from docker image
+        run: |
+          docker run -it --name kernel_build -e KERNEL_PACKAGE_NAME=${{ github.event.inputs.kernel_package_name }} -v .config:/.config -d kernel_build_image:latest
+      - name: Start SSH via tmate
+        uses: P3TERX/ssh2actions@main
