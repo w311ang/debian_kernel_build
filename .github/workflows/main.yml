@@ -15,9 +15,18 @@ jobs:
       - uses: actions/checkout@v4
       - name: build docker image
         run: |
-          docker build -t kernel_build_image .
+          docker build --build-arg KERNEL_PACKAGE_NAME=${{ github.event.inputs.kernel_package_name }} -t kernel_build_image --target download_kernel .
+      - name: Start SSH via tmate
+        if: always()
+        uses: P3TERX/ssh2actions@main
+      - name: build docker image
+        run: |
+          docker build --build-arg KERNEL_PACKAGE_NAME=${{ github.event.inputs.kernel_package_name }} -t kernel_build_image .
       - name: retrieve artifact from docker image
         run: |
-          docker run -it --name kernel_build -e KERNEL_PACKAGE_NAME=${{ github.event.inputs.kernel_package_name }} -v .config:/.config -d kernel_build_image:latest
+          docker run -it --name kernel_build -d kernel_build_image:latest
       - name: Start SSH via tmate
+        if: always()
         uses: P3TERX/ssh2actions@main
+      - uses: actions/upload-artifact@v4
+        path: artifact/
