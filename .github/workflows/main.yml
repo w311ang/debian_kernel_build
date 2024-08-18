@@ -6,6 +6,9 @@ on:
       kernel_package_name:
         description: 'Linux Kernel Package Name'
         required: true
+      ssh:
+        required: false
+        default: 'false'
 
 jobs:
   build:
@@ -17,7 +20,7 @@ jobs:
         run: |
           docker build --build-arg KERNEL_PACKAGE_NAME=${{ github.event.inputs.kernel_package_name }} -t kernel_build_image --target download_kernel .
       - name: Start SSH via tmate
-        if: always()
+        if: ${{ github.event.inputs.ssh == 'true' }}
         uses: P3TERX/ssh2actions@main
       - name: build docker image
         run: |
