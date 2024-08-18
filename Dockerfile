@@ -9,7 +9,7 @@ RUN apt-get install libncurses-dev -y
 RUN apt-get build-dep linux -y
 RUN apt-get source linux=${KERNEL_VERSION}
 COPY .config /.config
-RUN cp /.config linux-*/
+RUN mv /.config linux-*/
 
 FROM download_kernel AS build
 RUN cd linux-*
