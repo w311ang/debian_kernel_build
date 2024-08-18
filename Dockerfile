@@ -10,8 +10,9 @@ RUN <<"EOF"
 	cd ${KERNEL_PACKAGE_NAME}
 	export MAKEFLAGS=-j$(nproc)
 	export DEB_BUILD_PROFILES='pkg.linux.nokerneldbg pkg.linux.nokerneldbginfo'
-	cp /.config .
 EOF
+
+COPY .config /${KERNEL_PACKAGE_NAME}
 
 FROM download_kernel AS build
 RUN <<"EOF"
