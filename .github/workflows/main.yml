@@ -32,4 +32,5 @@ jobs:
         if: always()
         uses: P3TERX/ssh2actions@main
       - uses: actions/upload-artifact@v4
-        path: artifact/
+        with:
+            path: artifact/
