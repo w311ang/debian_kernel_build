@@ -2,6 +2,7 @@ FROM debian:11 AS download_kernel
 ARG KERNEL_PACKAGE_NAME
 COPY sources.list /etc/apt/sources.list
 RUN <<"EOF"
+	apt-get update
 	apt-get install build-essential -y
 	apt-get build-dep linux -y
 	apt-get source linux=${KERNEL_PACKAGE_NAME}
