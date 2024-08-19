@@ -7,7 +7,7 @@ COPY sources.list /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install build-essential -y
 RUN apt-get install libncurses-dev imagemagick -y
-RUN apt-get build-dep linux -y
+RUN apt-get build-dep linux=${KERNEL_VERSION} -y
 RUN apt-get source linux=${KERNEL_VERSION}
 COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
