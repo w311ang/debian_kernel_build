@@ -14,7 +14,7 @@ RUN mv /tmp/.config linux-*/
 ARG MAKEFLAGS_ADD
 ARG MAKEFLAGS="${MAKEFLAGS_ADD}"
 # post_download #
-sed -i 's/debug-info: true/debug-info: false/' linux-*/debian/config/defines
+RUN sed -i 's/debug-info: true/debug-info: false/' linux-*/debian/config/defines
 # post_download #
 
 FROM download_kernel AS build
