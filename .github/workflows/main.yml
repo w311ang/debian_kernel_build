@@ -21,23 +21,31 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Create artifact folder
+        run: mkdir artifact
       - name: build docker image
-        run: |
-          mkdir artifact
-          docker build --build-arg KERNEL_VERSION=${{ github.event.inputs.kernel_version }} \
-            --build-arg BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }} \
-            --build-arg MAKEFLAGS_ADD='${{ github.event.inputs.makeflags }}' \
-            -t kernel_build_image --target download_kernel .
+        uses: docker/build-push-action@v6
+        with:
+          build-args: |
+            KERNEL_VERSION=${{ github.event.inputs.kernel_version }}
+            BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }}
+            MAKEFLAGS_ADD='${{ github.event.inputs.makeflags }}'
+          tags: kernel_build_image
+          target: download_kernel
+          context: .
       - name: Start SSH via tmate
         if: github.event.inputs.ssh == 'true'
         uses: P3TERX/ssh2actions@main
       - name: build docker image
         if: github.event.inputs.ssh != 'true'
-        run: |
-          docker build --build-arg KERNEL_VERSION=${{ github.event.inputs.kernel_version }} \
-            --build-arg BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }} \
-            --build-arg MAKEFLAGS_ADD='${{ github.event.inputs.makeflags }}' \
-            -t kernel_build_image .
+        uses: docker/build-push-action@v6
+        with:
+          build-args: |
+            KERNEL_VERSION=${{ github.event.inputs.kernel_version }}
+            BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }}
+            MAKEFLAGS_ADD='${{ github.event.inputs.makeflags }}'
+          tags: kernel_build_image
+          context: .
       - name: retrieve artifact from docker image
         if: github.event.inputs.ssh != 'true'
         run: |
