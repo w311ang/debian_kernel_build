@@ -2,5 +2,5 @@ deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20210421T21
 deb-src [check-valid-until=no] http://snapshot.debian.org/archive/debian/20210421T210348Z/ bullseye main
 deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20210421T210348Z/ bullseye-updates main
 deb-src [check-valid-until=no] http://snapshot.debian.org/archive/debian/20210421T210348Z/ bullseye-updates main
-deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20210421T210348Z/ bullseye-security main
-deb-src [check-valid-until=no] http://snapshot.debian.org/archive/debian/20210421T210348Z/ bullseye-security main
+#deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20210421T210348Z/ bullseye-security main
+#deb-src [check-valid-until=no] http://snapshot.debian.org/archive/debian/20210421T210348Z/ bullseye-security main
