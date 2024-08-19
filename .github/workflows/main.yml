@@ -41,6 +41,8 @@ jobs:
       - name: Start SSH via tmate
         if: github.event.inputs.ssh == 'true'
         uses: P3TERX/ssh2actions@main
+      - name: Check disk free space
+        run: df -h
       - name: build docker image
         if: github.event.inputs.ssh != 'true'
         uses: docker/build-push-action@v6
