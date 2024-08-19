@@ -23,5 +23,5 @@ RUN <<EOF
     cd linux-*
     export MAKEFLAGS="-j$(nproc) ${MAKEFLAGS}"
     make oldconfig
-    dpkg-buildpackage -b -nc -uc
+    nice make $MAKEFLAGS bindeb-pkg
 EOF
