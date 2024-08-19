@@ -9,6 +9,8 @@ on:
       build_debian_version:
         description: 'Build Debian Version'
         required: true
+      makeflags:
+        required: false
       ssh:
         required: false
         default: 'false'
@@ -24,6 +26,7 @@ jobs:
           mkdir artifact
           docker build --build-arg KERNEL_VERSION=${{ github.event.inputs.kernel_version }} \
             --build-arg BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }} \
+            --build-arg MAKEFLAGS_ADD='${{ github.event.inputs.makeflags }}' \
             -t kernel_build_image --target download_kernel .
       - name: Start SSH via tmate
         if: github.event.inputs.ssh == 'true'
@@ -33,6 +36,7 @@ jobs:
         run: |
           docker build --build-arg KERNEL_VERSION=${{ github.event.inputs.kernel_version }} \
             --build-arg BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }} \
+            --build-arg MAKEFLAGS_ADD='${{ github.event.inputs.makeflags }}' \
             -t kernel_build_image .
       - name: retrieve artifact from docker image
         if: github.event.inputs.ssh != 'true'
