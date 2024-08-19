@@ -1,2 +1,5 @@
 apt-get install pip -y
-pip install --force-reinstall sphinx==2.4
+apt-get remove python3-Sphinx -y
+apt-get autoremove -y
+
+pip install sphinx==2.4
