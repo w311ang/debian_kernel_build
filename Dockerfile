@@ -12,7 +12,7 @@ RUN apt-get source linux=${KERNEL_VERSION}
 COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
 ARG MAKEFLAGS_ADD
-ENV MAKEFLAGS="${MAKEFLAGS_ADD}"
+ARG MAKEFLAGS="${MAKEFLAGS_ADD}"
 # post_download #
 
 # post_download #
