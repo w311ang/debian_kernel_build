@@ -19,7 +19,7 @@ RUN sed -i 's/debug-info: true/debug-info: false/' linux-*/debian/config/defines
 
 FROM download_kernel AS build
 ARG MAKEFLAGS_ADD
-ENV DEB_BUILD_PROFILES=nodoc
+ENV DEB_BUILD_PROFILES='nodoc pkg.linux.nokerneldbg pkg.linux.nokerneldbginfo'
 RUN <<EOF
     cd linux-*
     export MAKEFLAGS="-j$(nproc) ${MAKEFLAGS_ADD}"
