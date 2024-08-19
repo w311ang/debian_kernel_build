@@ -26,4 +26,4 @@ EOF
 dpkg-deb --build $PACKAGE_NAME
 dpkg -i $PACKAGE_NAME.deb
 
-pip install sphinx==2.4 sphinx-rtd-theme 'Jinja2<3.1'
+pip install sphinx sphinx-rtd-theme
