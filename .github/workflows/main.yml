@@ -26,6 +26,7 @@ jobs:
       - name: build docker image
         uses: docker/build-push-action@v6
         with:
+          push: true
           build-args: |
             KERNEL_VERSION=${{ github.event.inputs.kernel_version }}
             BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }}
@@ -40,6 +41,7 @@ jobs:
         if: github.event.inputs.ssh != 'true'
         uses: docker/build-push-action@v6
         with:
+          push: true
           build-args: |
             KERNEL_VERSION=${{ github.event.inputs.kernel_version }}
             BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }}
