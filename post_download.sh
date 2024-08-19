@@ -6,6 +6,7 @@ PACKAGE_NAME=python3-sphinx-rtd-theme
 mkdir -p $PACKAGE_NAME/DEBIAN
 cat <<EOF >$PACKAGE_NAME/DEBIAN/control
 Package: $PACKAGE_NAME
+Version: 1.0
 Architecture: all
 Description: A dummy package
  This is a dummy package that does nothing.
@@ -17,6 +18,7 @@ PACKAGE_NAME=python3-sphinx
 mkdir -p $PACKAGE_NAME/DEBIAN
 cat <<EOF >$PACKAGE_NAME/DEBIAN/control
 Package: $PACKAGE_NAME
+Version: 1.0
 Architecture: all
 Description: A dummy package
  This is a dummy package that does nothing.
