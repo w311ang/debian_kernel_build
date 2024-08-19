@@ -21,7 +21,7 @@ RUN apt-get autoremove -y
 
 ENV PACKAGE_NAME=python3-sphinx
 COPY <<EOF ${PACKAGE_NAME}/DEBIAN/control
-Package: $PACKAGE_NAME
+Package: ${PACKAGE_NAME}
 Version: 1.0
 Architecture: all
 Description: A dummy package
@@ -32,7 +32,7 @@ RUN dpkg -i $PACKAGE_NAME.deb
 
 ENV PACKAGE_NAME=python3-sphinx-rtd-theme
 COPY <<EOF ${PACKAGE_NAME}/DEBIAN/control
-Package: $PACKAGE_NAME
+Package: ${PACKAGE_NAME}
 Version: 1.0
 Architecture: all
 Description: A dummy package
