@@ -1,2 +1,2 @@
 apt-get install pip -y
-pip install --upgrade sphinx
+pip install --force-reinstall sphinx==2.4
