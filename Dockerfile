@@ -47,7 +47,7 @@ FROM download_kernel AS build
 ENV DEB_BUILD_PROFILES=nodoc
 RUN <<EOF
     cd linux-*
-    make oldconfig
     export MAKEFLAGS="-j$(nproc) $MAKEFLAGS"
+    make oldconfig
     dpkg-buildpackage -b -nc -uc
 EOF
