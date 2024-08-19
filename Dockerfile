@@ -13,8 +13,9 @@ COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
 
 FROM download_kernel AS build
+ARG MAKEFLAGS_ADD
 RUN <<EOF
     cd linux-*
-    export MAKEFLAGS=-j$(nproc)
+    export MAKEFLAGS="-j$(nproc) ${MAKEFLAGS_ADD}"
     dpkg-buildpackage -b -nc -uc
 EOF
