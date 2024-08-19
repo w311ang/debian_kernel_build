@@ -24,12 +24,10 @@ jobs:
       - name: Change docker data folder
         run: |
           sudo systemctl stop docker
-          cat <<EOF >/etc/docker/daemon.json
-          {
+          echo '{
               "data-root": "/mnt/docker"
-          }
-          EOF
-          mv /usr/lib/docker /mnt/
+          }' | sudo tee /etc/docker/daemon.json
+          sudo mv /usr/lib/docker /mnt/
           sudo systemctl start docker
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
