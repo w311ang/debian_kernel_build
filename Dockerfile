@@ -13,7 +13,6 @@ COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
 
 FROM download_kernel AS build
-WORKDIR /root
 RUN <<EOF
     cd linux-*
     export MAKEFLAGS=-j$(nproc)
