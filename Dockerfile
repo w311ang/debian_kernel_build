@@ -12,16 +12,17 @@ RUN apt-get source linux=${KERNEL_VERSION}
 COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
 ARG MAKEFLAGS_ADD
-ARG MAKEFLAGS="${MAKEFLAGS_ADD}"
+ENV MAKEFLAGS="${MAKEFLAGS_ADD}"
 # post_download #
 RUN sed -i 's/debug-info: true/debug-info: false/' linux-*/debian/config/defines
 # post_download #
 
 FROM download_kernel AS build
+ARG MAKEFLAGS_ADD
 ENV DEB_BUILD_PROFILES=nodoc
 RUN <<EOF
     cd linux-*
-    export MAKEFLAGS="-j$(nproc) ${MAKEFLAGS}"
+    export MAKEFLAGS="-j$(nproc) ${MAKEFLAGS_ADD}"
     make oldconfig
     nice make $MAKEFLAGS bindeb-pkg
 EOF
