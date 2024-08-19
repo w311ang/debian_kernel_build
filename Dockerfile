@@ -13,6 +13,8 @@ COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
 ARG MAKEFLAGS_ADD
 ENV MAKEFLAGS="${MAKEFLAGS_ADD}"
+COPY post_download.sh .
+RUN sh post_download.sh
 
 FROM download_kernel AS build
 RUN <<EOF
