@@ -41,7 +41,7 @@ EOF
 RUN dpkg-deb --build $PACKAGE_NAME
 RUN dpkg -i $PACKAGE_NAME.deb
 
-RUN pip install sphinx sphinx-rtd-theme
+RUN pip install sphinx sphinx-rtd-theme six
 # post_download #
 
 FROM download_kernel AS build
