@@ -11,6 +11,7 @@ RUN apt-get build-dep linux=${KERNEL_VERSION} -y
 RUN apt-get source linux=${KERNEL_VERSION}
 COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
+ENV MAKEFLAGS=${MAKEFLAGS_ADD}
 
 FROM download_kernel AS build
 ARG MAKEFLAGS_ADD
