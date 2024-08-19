@@ -65,6 +65,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Check disk free space
+        if: always()
         run: df -h
       - name: retrieve artifact from docker image
         if: github.event.inputs.ssh != 'true'
