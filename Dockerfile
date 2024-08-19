@@ -13,7 +13,6 @@ COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
 ARG MAKEFLAGS_ADD
 ENV MAKEFLAGS="${MAKEFLAGS_ADD}"
-
 # post_download #
 RUN apt-get install pip -y
 RUN apt-get remove python3-sphinx -y
@@ -45,8 +44,9 @@ RUN pip install sphinx sphinx-rtd-theme six
 # post_download #
 
 FROM download_kernel AS build
+ENV DEB_BUILD_PROFILES=nodoc
 RUN <<EOF
     cd linux-*
-    export MAKEFLAGS="-j$(nproc) ${MAKEFLAGS_ADD}"
+    export MAKEFLAGS="-j$(nproc) $MAKEFLAGS"
     dpkg-buildpackage -b -nc -uc
 EOF
