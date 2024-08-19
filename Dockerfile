@@ -14,33 +14,7 @@ RUN mv /tmp/.config linux-*/
 ARG MAKEFLAGS_ADD
 ENV MAKEFLAGS="${MAKEFLAGS_ADD}"
 # post_download #
-RUN apt-get install pip -y
-RUN apt-get remove python3-sphinx -y
-RUN apt-get autoremove -y
 
-ENV PACKAGE_NAME=python3-sphinx
-COPY <<EOF ${PACKAGE_NAME}/DEBIAN/control
-Package: ${PACKAGE_NAME}
-Version: 1.0
-Architecture: all
-Description: A dummy package
- This is a dummy package that does nothing.
-EOF
-RUN dpkg-deb --build $PACKAGE_NAME
-RUN dpkg -i $PACKAGE_NAME.deb
-
-ENV PACKAGE_NAME=python3-sphinx-rtd-theme
-COPY <<EOF ${PACKAGE_NAME}/DEBIAN/control
-Package: ${PACKAGE_NAME}
-Version: 1.0
-Architecture: all
-Description: A dummy package
- This is a dummy package that does nothing.
-EOF
-RUN dpkg-deb --build $PACKAGE_NAME
-RUN dpkg -i $PACKAGE_NAME.deb
-
-RUN pip install sphinx sphinx-rtd-theme six
 # post_download #
 
 FROM download_kernel AS build
