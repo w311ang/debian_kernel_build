@@ -32,4 +32,4 @@ EOF
 FROM build AS extract_artifact
 RUN mkdir artifact/
 RUN for i in *; do ln -s "$i" artifact/; done
-RUN rm artifact/linux-*/ artifact/artifact .*
+RUN rm artifact/linux-*/ artifact/artifact artifact/.*
