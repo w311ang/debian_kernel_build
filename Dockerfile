@@ -31,4 +31,4 @@ EOF
 
 FROM build AS extract_artifact
 RUN --mount=type=bind,source=artifact/,target=artifact/ \
-    rsync -av --progress --exclude=linux-5.10.223/ . artifact/
+    rsync -av --progress --exclude=linux-*/ . artifact/
