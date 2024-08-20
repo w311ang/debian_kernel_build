@@ -30,5 +30,6 @@ RUN <<EOF
 EOF
 
 FROM build AS extract_artifact
-RUN --mount=type=bind,source=artifact/,target=artifact/ \
-    rsync -av --progress --exclude=linux-*/ . artifact/
+RUN mkdir artifact/
+RUN for i in *; do ln -s "$i" artifact/; done
+RUN rm artifact/linux-*/ artifact/artifact
