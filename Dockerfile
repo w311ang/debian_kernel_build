@@ -13,6 +13,7 @@ COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
 ARG MAKEFLAGS_ADD
 ENV MAKEFLAGS="${MAKEFLAGS_ADD}"
+RUN export
 # post_download #
 RUN sed -i 's/debug-info: true/debug-info: false/' linux-*/debian/config/defines
 # post_download #
@@ -23,6 +24,7 @@ ENV DEB_BUILD_PROFILES='nodoc pkg.linux.nokerneldbg pkg.linux.nokerneldbginfo'
 RUN <<EOF
     cd linux-*
     export MAKEFLAGS="-j$(nproc) ${MAKEFLAGS_ADD}"
+    export
     make oldconfig
     nice make $MAKEFLAGS bindeb-pkg
 EOF
