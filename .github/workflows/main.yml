@@ -90,7 +90,7 @@ jobs:
       - name: retrieve artifact from docker image
         if: github.event.inputs.ssh != 'true'
         run: |
-          docker run -it --name kernel_build -d kernel_build_image:latest
+          docker run -it --name kernel_build -d ghcr.io/${{ github.repository_owner }}/kernel_build_image:latest
       - name: Start SSH via tmate
         if: github.event.inputs.ssh != 'true' && (github.event.inputs.ssh_when_finish == 'true' || failure())
         uses: P3TERX/ssh2actions@main
