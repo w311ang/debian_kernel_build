@@ -47,7 +47,8 @@ jobs:
             BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }}
             MAKEFLAGS_ADD='${{ github.event.inputs.makeflags }}'
           load: true
-          tags: kernel_build_image
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/kernel_build_image
           target: download_kernel
           context: .
           cache-from: type=gha
@@ -66,7 +67,8 @@ jobs:
             BUILD_DEBIAN_VERSION=${{ github.event.inputs.build_debian_version }}
             MAKEFLAGS_ADD='${{ github.event.inputs.makeflags }}'
           load: true
-          tags: kernel_build_image
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/kernel_build_image
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
