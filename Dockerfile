@@ -13,10 +13,10 @@ COPY .config /tmp/.config
 RUN mv /tmp/.config linux-*/
 ARG MAKEFLAGS_ADD
 ENV MAKEFLAGS="${MAKEFLAGS_ADD}"
-RUN export
 # post_download #
 RUN sed -i 's/debug-info: true/debug-info: false/' linux-*/debian/config/defines
 # post_download #
+RUN export
 
 FROM download_kernel AS build
 ARG MAKEFLAGS_ADD
