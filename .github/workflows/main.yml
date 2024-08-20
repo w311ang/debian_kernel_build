@@ -60,7 +60,7 @@ jobs:
             MAKEFLAGS_ADD=${{ github.event.inputs.makeflags }}
           load: true
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/kernel_build_image
+          tags: ghcr.io/${{ github.repository_owner }}/kernel_build_image:download_kernel
           target: download_kernel
           context: .
           cache-from: type=gha
@@ -80,7 +80,7 @@ jobs:
             MAKEFLAGS_ADD=${{ github.event.inputs.makeflags }}
           load: true
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/kernel_build_image
+          tags: ghcr.io/${{ github.repository_owner }}/kernel_build_image:build
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
